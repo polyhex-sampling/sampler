@@ -1,0 +1,24 @@
+#include "samplingAlgoTool.hpp"
+
+#include <algorithm>
+#include <cmath>
+
+
+unsigned short int computeLvl(const float& density, const float& spaceSize, const unsigned short int& subdivFactor)
+{
+	return std::floor( std::log(
+				2*std::pow(subdivFactor,2)*density / (2*subdivFactor-1)
+				* 3.*0.866/std::pow(2*spaceSize, 2)
+				) / std::log(subdivFactor) );
+}
+
+float computeRank(const float& density, const float& spaceSize, const unsigned short int& lvl, const unsigned short int& subdivFactor)
+{
+	return ((3.*0.866 *density/std::pow(2*spaceSize, 2))
+			/ std::pow(subdivFactor, lvl-1) - 1 );
+}
+
+float computeDensity(const unsigned short int& lvl, const unsigned short int& rank, const float& spaceSize, const unsigned short int& subdivFactor)
+{
+	return ( std::pow(subdivFactor, lvl-1) * (rank+1) ) * std::pow(2*spaceSize, 2) / (3.*0.866) + 0.5;
+}

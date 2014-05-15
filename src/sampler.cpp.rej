@@ -1,0 +1,11 @@
+--- sampler.cpp
++++ sampler.cpp
+@@ -80,7 +80,7 @@
+ 			file_offset.read((char *) &m_data.offsets_list.back()[id][0], 2*colSize*sizeof(float));
+ 			if(id%100000 == 0)
+ 			{
+-				std::cout << "\r" << std::floor(1000.*id/lutSize)/10. << "%      ";
++				std::cout << "\r" << std::floor(100.*id/lutSize) << "%      ";
+ 				std::cout.flush();
+ 			}
+ 		}
