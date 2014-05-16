@@ -2,7 +2,6 @@ Polyhex Sampler
 ===============
 [![Build Status](https://travis-ci.org/polyhex-sampling/sampler.svg?branch=master)](https://travis-ci.org/polyhex-sampling/sampler)
 
-
 Description
 -----------
 
