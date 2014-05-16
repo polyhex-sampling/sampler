@@ -9,7 +9,7 @@ cache: apt
 
 before_script:
   - sudo apt-get -qq update
-  - sudo apt-get -qq install libboost-program-options-dev  libsdl-image1.2-dev libboost-system-dev qt4-qmake
+  - sudo apt-get -qq install libboost-program-options-dev  libsdl-image1.2-dev libboost-system-dev qt4-dev-tools
 
 script:
   - cmake . $BTYPE
