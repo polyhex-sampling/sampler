@@ -18,7 +18,9 @@ class Sampler
 		Tiling m_tiling;
 
 	public:
-		Sampler(const std::string& fn_rules, const std::string& fn_bary, const std::string& fn_offset);
+		Sampler(const std::string& fn_rules,
+                        const std::string& fn_bary, 
+                        const std::string& fn_offset);
 
 	private:
 		void loadBarycenters(const std::string& fn_bary);

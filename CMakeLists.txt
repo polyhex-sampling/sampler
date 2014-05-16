@@ -7,13 +7,6 @@ list(APPEND CMAKE_MODULE_PATH "modules")
 project(sampler)
 
 set(EXECUTABLE_OUTPUT_PATH ./bin)
-#set(CMAKE_BUILD_TYPE Debug)  # None | Debug  | Release | RelWithDebInfo | MinSizeRel
-set(CMAKE_BUILD_TYPE None)  # None | Debug  | Release | RelWithDebInfo | MinSizeRel
-#set(CMAKE_CXX_FLAGS " -O1")
-#set(CMAKE_CXX_FLAGS " -O2")
-#set(CMAKE_CXX_FLAGS " -O3")
-#set(CMAKE_CXX_FLAGS " -Ofast")
-set(CMAKE_CXX_FLAGS " -Ofast -DNDEBUG")
 
 find_package(Boost 1.42.0 COMPONENTS program_options REQUIRED)
 find_package(Qt4 COMPONENTS QtCore QtGui QtOpenGl REQUIRED)
@@ -24,7 +17,7 @@ Find_Package (SDL_image REQUIRED )
 include(${QT_USE_FILE})
 
 include_directories(
-	./src
+	${PROJECT_SOURCE_DIR}/src
 	${Boost_INCLUDE_DIR}
 	${QT_QTOPENGL_INCLUDE_DIR}
 	${OPENGL_INCLUDE_DIR}
@@ -35,11 +28,11 @@ link_directories(
 	${OPENGL_LIBRARY_DIRS}
 )
 
-file(GLOB sampler-core-src src/*.cpp )
-file(GLOB sampler-gui-src src/gui/*.cpp )
-file(GLOB sampler-gui-hdr src/gui/*.hpp )
+file(GLOB sampler-core-src ${PROJECT_SOURCE_DIR}/src/*.cpp )
+file(GLOB sampler-gui-src ${PROJECT_SOURCE_DIR}/src/gui/*.cpp )
+file(GLOB sampler-gui-hdr ${PROJECT_SOURCE_DIR}/src/gui/*.hpp )
 
-add_executable(sampler-cli src/main/cli.cpp ${sampler-core-src})
+add_executable(sampler-cli ${PROJECT_SOURCE_DIR}/src/main/cli.cpp ${sampler-core-src})
 target_link_libraries(
 	sampler-cli
 	${Boost_LIBRARIES}
@@ -59,8 +52,6 @@ target_link_libraries(
 )
 
 add_executable(sampler-test src/main/test.cpp ${sampler-core-src})
-#set_target_properties(sampler-test PROPERTIES COMPILE_FLAGS -pg)
-#set_target_properties(sampler-test PROPERTIES LINK_FLAGS -pg)
 target_link_libraries(
 	sampler-test
 	${Boost_LIBRARIES}

@@ -21,16 +21,16 @@ int main(int argc, char** argv)
 		 "produce help message")
 		("rule,r",
 		 boostPO::value<std::string>(&fn_rules)->required(),
-		 "REQUIRED | subdivision rule filename")
+		 "REQUIRED | Subdivision rule filename")
 		("bary,b",
 		 boostPO::value<std::string>(&fn_bary),
-		 "barycenter offset filename (for each rule id)")
+		 "Barycenter offset filename (for each rule id)")
 		("dev,d",
 		 boostPO::value<std::string>(&fn_dev),
-		 "offset filename (for each structural indices)")
+		 "Offset filename (for each structural indices)")
 		("out,o",
 		 boostPO::value<std::string>(&fn_out),
-		 "output filename")
+		 "Output filename")
 		;
 
 	try
@@ -54,7 +54,7 @@ int main(int argc, char** argv)
 	}
 
 	/* PROG ***********************************************************/
-	Sampler sampler(fn_rules, fn_bary);
+	Sampler sampler(fn_rules, fn_bary, fn_dev);
 	/*
 	WriterFilePts write(fn_out);
 	/*/
