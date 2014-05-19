@@ -27,6 +27,8 @@ PointSetView::PointSetView(QWidget *parent) :
 	QGLFormat newFormat = this->format();
 	newFormat.setSampleBuffers(true);
 	newFormat.setSamples(16);
+        newFormat.setProfile(QGLFormat::CoreProfile);
+
 	this->setFormat(newFormat);
 
 	setMouseTracking(true);
