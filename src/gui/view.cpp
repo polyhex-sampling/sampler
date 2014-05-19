@@ -23,13 +23,13 @@ PointSetView::PointSetView(QWidget *parent) :
 	m_subdivFactor(37),
 	QGLWidget(parent)
 {
-	//Anti aliasing
+	//Anti aliasing and Core Profile
 	QGLFormat newFormat = this->format();
 	newFormat.setSampleBuffers(true);
 	newFormat.setSamples(16);
+        newFormat.setVersion(3,2);
         newFormat.setProfile(QGLFormat::CoreProfile);
-
-	this->setFormat(newFormat);
+        this->setFormat(newFormat);
 
 	setMouseTracking(true);
 
