@@ -24,6 +24,8 @@ A classical commandline build process looks like
     cmake ..     ##Check dependencies and generate a makefile
     make         ##Build
 
+For best performances, you can compile with optimized flags: `cmake .. -DCMAKE_BUILD_TYPE=Release`
+
 Once built, several executables are available in `build/bin`:
 
 * `sampler-cli`: 
