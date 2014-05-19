@@ -24,7 +24,22 @@ MainWindow::MainWindow(Sampler* sampler)
 	QSplitter* splitter = new QSplitter();
 	this->setCentralWidget(splitter);
 
-	m_view = new PointSetView();
+	//Anti aliasing and Core Profile
+	QGLFormat newFormat;
+        newFormat.setVersion(3,3);
+        newFormat.setProfile(QGLFormat::CoreProfile);
+        newFormat.setSampleBuffers(true);
+
+        QGLFormat::setDefaultFormat(newFormat);
+        
+        std::cout<< "OpenGL Profile (default we set)== "<< newFormat.profile() << std::endl;
+        
+	m_view = new PointSetView(newFormat,this);
+
+        std::cout<< "OpenGL Profile (we get after construction) == "<< m_view->format().profile() << std::endl;
+        
+
+        
 	createOptionPanel();
 	splitter->addWidget(m_view);
 	splitter->setStretchFactor(0,1);
