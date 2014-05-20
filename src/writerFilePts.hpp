@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "tileState.hpp"
 #include "vector.hpp"
 
 
@@ -21,7 +22,7 @@ class WriterFilePts
 		~WriterFilePts();
 
 	public:
-		inline void sample(const Point& sample)
+		inline void sample(const Point& sample, const TileState& tilestate)
 		{
 			m_file << sample.x() << "\t" << sample.y() << std::endl;
 		}
