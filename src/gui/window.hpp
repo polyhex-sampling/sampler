@@ -17,6 +17,7 @@ class MainWindow : public QMainWindow
 		int m_lut_index;
 		float (*m_DFunc)(const Point&);
 		Image m_image;
+		QDir m_image_dir;
 		float m_min_density;
 		float m_max_density;
 		short unsigned int m_seed;

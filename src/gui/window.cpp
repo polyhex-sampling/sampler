@@ -12,7 +12,7 @@ MainWindow::MainWindow(Sampler* sampler)
 : m_sampler(sampler), m_view(NULL), m_lut_index(-1)
 , m_seed(0), m_spaceSize(0.21), m_min_density(1), m_max_density(4e3), m_min_level(0), m_max_level(1), m_min_rank(0), m_max_rank(1), m_offsetInterpolate(true), m_dither(true)
 , m_crop(true)
-, m_DFunc(&dFunc_constant), m_image("data/img/butterfly.png")
+, m_DFunc(&dFunc_constant), m_image()//"data/img/butterfly.png")
 {
 	//~ qRegisterMetaType<PickedValue>("PickedValue");
 
@@ -117,7 +117,8 @@ void MainWindow::createOptionDFunc()
 
 void MainWindow::createOptionImage()
 {
-	optionImage = new QPushButton("butterfly.png");
+	optionImage = new QPushButton();//"butterfly.png");
+	m_image_dir.setPath("./");
 	connect( optionImage, SIGNAL(clicked(bool)), this, SLOT( getImageFile() ) );
 	optionImage->setEnabled(false);
 }
@@ -403,23 +404,21 @@ void MainWindow::getDFunc(int index)
 	optionRankMin->setEnabled(constant);
 	optionCrop->setEnabled(!constant);
 	optionImage->setEnabled(image);
-	//for(float i=0; i<=0.5; i+=0.25)
-	//	for(float j=0; j<=0.5; j+=0.25)
-	//	{
-	//		std::cout << Point(i, j) << " " << m_DFunc(Point(i, j)) << " | ";
-	//		std::cout << Point(-i, j) << " " << m_DFunc(Point(-i, j)) << " | ";
-	//		std::cout << Point(i, -j) << " " << m_DFunc(Point(i, -j)) << " | ";
-	//		std::cout << Point(-i, -j) << " " << m_DFunc(Point(-i, -j)) << std::endl;
-	//	}
+
 	if(m_gen_auto) generatePointset();
 }
 
 void MainWindow::getImageFile()
 {
-	QFileInfo file = QFileDialog::getOpenFileName(this, tr("Open File"), "./", tr("Image (*.*)"));
-	m_image.load(file.filePath().toStdString());
-	optionImage->setText(file.fileName());
-	if(m_gen_auto) generatePointset();
+	QString fname = QFileDialog::getOpenFileName(this, tr("Open File"), m_image_dir.path(), tr("Image (*.*)"));
+	if(!fname.isNull())
+	{
+		QFileInfo file(fname);
+		m_image.load(file.filePath().toStdString());
+		optionImage->setText(file.fileName());
+		m_image_dir = file.dir();
+		if(m_gen_auto) generatePointset();
+	}
 }
 
 void MainWindow::getDensityMin()
@@ -558,11 +557,14 @@ void MainWindow::showCoordinates(float x, float y)
 
 void MainWindow::generatePointset()
 {
-	if(optionDFunc->currentIndex()==0)
-		m_sampler->generateUniform(m_max_level, m_max_rank, m_lut_index, m_write, m_seed, m_spaceSize, m_crop);
-	else
-		m_sampler->generateAdaptive(m_DFunc, m_min_density, m_max_density, m_lut_index, m_write, m_seed, m_spaceSize, m_offsetInterpolate, m_dither);
-	updatePointset();
+	if( !( optionDFunc->currentIndex() == 7 && m_image.isNull() ) )
+	{
+		if(optionDFunc->currentIndex()==0)
+			m_sampler->generateUniform(m_max_level, m_max_rank, m_lut_index, m_write, m_seed, m_spaceSize, m_crop);
+		else
+			m_sampler->generateAdaptive(m_DFunc, m_min_density, m_max_density, m_lut_index, m_write, m_seed, m_spaceSize, m_offsetInterpolate, m_dither);
+		updatePointset();
+	}
 }
 
 void MainWindow::updatePointset()

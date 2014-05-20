@@ -18,10 +18,13 @@ class Image
 		static void* m_data;
 
 	public:
+		Image();
 		Image(const std::string& filename);
 		void load(const std::string& filename);
 
 		static float dFunc(const Point& pt);
+
+		bool isNull();
 };
 
 #endif
