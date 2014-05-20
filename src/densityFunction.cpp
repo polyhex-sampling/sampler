@@ -26,6 +26,9 @@ float dFunc_contrast(const Point& pt)
 // Class Image //
 void* Image::m_data = NULL;
 
+Image::Image()
+{}
+
 Image::Image(const std::string& filename)
 {
 	load(filename);
@@ -50,4 +53,10 @@ float Image::dFunc(const Point& pt)
 	int py = std::max(std::min(image->h-1, (int)((image->h-1)*(0.5-pt.y()))), 0);
 	unsigned char c = ((unsigned char*)image->pixels)[py*image->pitch + px*bpp];
 	return 1.0-std::max(std::min(1.0, ((float)c)/255.0), 0.0);
+}
+
+bool Image::isNull()
+{
+	if( Image::m_data == NULL ) return true;
+	return false;
 }
