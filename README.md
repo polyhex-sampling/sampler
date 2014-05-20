@@ -2,6 +2,7 @@ Polyhex Sampler
 ===============
 [![Build Status](https://travis-ci.org/polyhex-sampling/sampler.svg?branch=master)](https://travis-ci.org/polyhex-sampling/sampler)
 
+
 Description
 -----------
 
@@ -12,7 +13,7 @@ To build the sampler, several packages are requires:
 
 * cmake (http://cmake.org) to generate the build project.
 * Qt4 (Gui) (http://qt.digia.com) 
-* Boost (and boost-progam-options) for command-line parsing (htt://boost.org)
+* Boost (and boost-progam-options) for command-line parsing (http://boost.org)
 * OpenGL
 * SDL and SDL_image
 
@@ -33,6 +34,13 @@ Once built, several executables are available in `build/bin`:
 * `sampler-test`: 
 
 
+Data
+----
+
+This program needs full offsets table to produce best sampling distribution.
+These tables are heavy (1.5G) and can be downloaded here: http://liris.cnrs.fr/polyhex/data/
+
+
 Usage examples
 --------------
 
@@ -40,7 +48,6 @@ Usage examples
 
 LICENSE
 -------
-
 
 The MIT License (MIT)
 
