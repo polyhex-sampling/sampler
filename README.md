@@ -25,6 +25,8 @@ A classical commandline build process looks like
     cmake ..     ##Check dependencies and generate a makefile
     make         ##Build
 
+For best performances, you can compile with optimized flags: `cmake .. -DCMAKE_BUILD_TYPE=Release`
+
 Once built, several executables are available in `build/bin`:
 
 * `sampler-cli`: 
@@ -35,7 +37,7 @@ Once built, several executables are available in `build/bin`:
 Data
 ----
 
-This program need full offsets table to produce best sampling distribution.
+This program needs full offsets table to produce best sampling distribution.
 These tables are heavy (1.5G) and can be downloaded here: http://liris.cnrs.fr/polyhex/data/
 
 
