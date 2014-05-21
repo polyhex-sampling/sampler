@@ -73,7 +73,7 @@ int main(int argc, char** argv)
 
 	if( vm.count("out") )
 	{
-		WriterFilePts write(fn_out);
+		WriterFileRaw write(fn_out);
 		sampler.generateUniform(nbSample, -1, write, seed);
 	}
 	else
