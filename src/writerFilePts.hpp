@@ -21,6 +21,9 @@ class WriterFilePts
 		WriterFilePts(const std::string& fn);
 		~WriterFilePts();
 
+		void open(const float& spaceSize=1.);
+		void header(const float& spaceSize=1.);
+
 	public:
 		inline void sample(const Point& sample, const TileState& tilestate)
 		{
@@ -28,8 +31,6 @@ class WriterFilePts
 		}
 
 		void clear(const float& spaceSize=1.);
-		void open(const float& spaceSize=1.);
-		void header(const float& spaceSize=1.);
 };
 
 #endif

@@ -13,6 +13,8 @@ int main(int argc, char** argv)
 	std::string fn_bary;
 	std::string fn_dev;
 	std::string fn_out;
+	unsigned int nbSample;
+	unsigned short int seed;
 
 	boostPO::variables_map vm;
 	boostPO::options_description desc("Allowed options");
@@ -31,6 +33,12 @@ int main(int argc, char** argv)
 		("out,o",
 		 boostPO::value<std::string>(&fn_out),
 		 "Output filename")
+		("nbSample,n",
+		 boostPO::value<unsigned int>(&nbSample)->default_value(1024),
+		 "Number of sample de generate")
+		("seed,s",
+		 boostPO::value<unsigned short int>(&seed)->default_value(0),
+		 "Initial tile to use for sampling ([1-408], 0 = random)")
 		;
 
 	try
@@ -55,15 +63,22 @@ int main(int argc, char** argv)
 
 	/* PROG ***********************************************************/
 	Sampler sampler(fn_rules, fn_bary, fn_dev);
-	//*
-	WriterFilePts write(fn_out);
-	/*/
-	WriterEmpty write;
-	//*/
-	char ans;
-	float density = 4000;
-	unsigned short int seed = 0;
-	float spaceScale = 0.21;
 
-	sampler.generateUniform(density, -1, write, seed, spaceScale);
+	if( seed == 0 )
+	{
+		srand48(time(NULL));
+		seed = std::ceil(drand48()*408);
+	}
+	if( vm.count("seed") ) seed = (seed-1)%408;
+
+	if( vm.count("out") )
+	{
+		WriterFilePts write(fn_out);
+		sampler.generateUniform(nbSample, -1, write, seed);
+	}
+	else
+	{
+		WriterEmpty write;
+		sampler.generateUniform(nbSample, -1, write, seed);
+	}
 }
