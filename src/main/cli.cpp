@@ -13,6 +13,8 @@ int main(int argc, char** argv)
 	std::string fn_bary;
 	std::string fn_dev;
 	std::string fn_out;
+	unsigned int nbSample;
+	unsigned short int seed;
 
 	boostPO::variables_map vm;
 	boostPO::options_description desc("Allowed options");
@@ -23,14 +25,20 @@ int main(int argc, char** argv)
 		 boostPO::value<std::string>(&fn_rules)->required(),
 		 "REQUIRED | Subdivision rule filename")
 		("bary,b",
-		 boostPO::value<std::string>(&fn_bary),
-		 "Barycenter offset filename (for each rule id)")
+		 boostPO::value<std::string>(&fn_bary)->required(),
+		 "REQUIRED | Barycenter offset filename (for each rule id)")
 		("dev,d",
 		 boostPO::value<std::string>(&fn_dev),
-		 "Offset filename (for each structural indices)")
+		 "Offset LUT filename (for each structural indices)")
 		("out,o",
 		 boostPO::value<std::string>(&fn_out),
 		 "Output filename")
+		("nbSample,n",
+		 boostPO::value<unsigned int>(&nbSample)->default_value(1024),
+		 "Number of sample de generate")
+		("seed,s",
+		 boostPO::value<unsigned short int>(&seed)->default_value(0),
+		 "Initial tile to use for sampling ([1-408], 0 = random)")
 		;
 
 	try
@@ -55,39 +63,22 @@ int main(int argc, char** argv)
 
 	/* PROG ***********************************************************/
 	Sampler sampler(fn_rules, fn_bary, fn_dev);
-	/*
-	WriterFilePts write(fn_out);
-	/*/
-	WriterEmpty write;
-	//*/
-	char ans;
-	float density = 2;
-	unsigned short int seed = 0;
-	float spaceScale = 0.21;
-	while(true)
+
+	if( seed == 0 )
 	{
-		std::cout << "=================================" << std::endl;
-		std::cout << "? Generate a distribution (Y/n) ? ";
-		if( std::cin.peek() == '\n' ) ans='y';
-		else if( !(std::cin >> ans) ) break;
-		std::cin.ignore();
-		if( std::cin.fail() || ans=='n' || ans=='N') break;
+		srand48(time(NULL));
+		seed = std::ceil(drand48()*408);
+	}
+	if( vm.count("seed") ) seed = (seed-1)%408;
 
-		std::cout << "? set initial seed [0-" << sampler.tiling().ruleSize()-1 << "] (" << ++seed << "): ";
-		if( std::cin.peek() == '\n' );
-		else if( !(std::cin >> seed) ) break;
-		std::cin.ignore();
-
-		std::cout << "? set final density [0-inf] (" << density << "): ";
-		if( std::cin.peek() == '\n' );
-		else if( !(std::cin >> density) ) break;
-		std::cin.ignore();
-
-		std::cout << "? set boundary (" << spaceScale << "): ";
-		if( std::cin.peek() == '\n' );
-		else if( !(std::cin >> spaceScale) ) break;
-		std::cin.ignore();
-
-		sampler.generateUniform(density, -1, write, seed, spaceScale);
+	if( vm.count("out") )
+	{
+		WriterFileRaw write(fn_out);
+		sampler.generateUniform(nbSample, -1, write, seed);
+	}
+	else
+	{
+		WriterEmpty write;
+		sampler.generateUniform(nbSample, -1, write, seed);
 	}
 }

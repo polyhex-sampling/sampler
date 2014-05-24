@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "tileState.hpp"
 #include "vector.hpp"
 
 
@@ -15,27 +16,21 @@ class WriterFileRaw
 	private:
 		std::string m_filename;
 		std::ofstream m_file;
+		float m_spaceSize;
 
 	public:
 		WriterFileRaw(const std::string& fn);
 		~WriterFileRaw();
 
+		void open(const float& spaceSize=1.);
+
 	public:
-		inline void sample(const Point& sample)
+		inline void sample(const Point& sample, const TileState& tilestate)
 		{
-			m_file << sample.x() << "\t" << sample.y() << std::endl;
+			m_file << sample.x()/m_spaceSize+0.5 << "\t" << sample.y()/m_spaceSize+0.5 << std::endl;
 		}
 
-		inline void clear()
-		{
-			m_file.close();
-			m_file.open(m_filename.c_str());
-			if(!m_file.is_open())
-			{
-				std::cerr << "<<! Cannot open output file : " << m_filename << std::endl;
-				exit(EXIT_FAILURE);
-			}
-		}
+		void clear(const float& spaceSize=1.);
 };
 
 #endif

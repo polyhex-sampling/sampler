@@ -29,11 +29,11 @@ class Sampler
 	public:
 		const Tiling& tiling() const { return m_tiling; };
 		template <class WRITER>
-		unsigned int generateUniform(const float& density,  const short int& ilut, WRITER& writer, const unsigned short int& seed=0, const float& spaceSize=0.235, const bool& crop=true);
+		unsigned int generateUniform(const float& density,  const short int& ilut, WRITER& writer, const unsigned short int& seed=0, const float& spaceSize=0.21, const bool& crop=true);
 		template <class WRITER>
-		unsigned int generateUniform(const unsigned short int& finalLvl, const unsigned short int& finalRank, const short int& ilut, WRITER& writer, const unsigned short int& seed=0, const float& spaceSize=0.235, const bool& crop=true);
+		unsigned int generateUniform(const unsigned short int& finalLvl, const unsigned short int& finalRank, const short int& ilut, WRITER& writer, const unsigned short int& seed=0, const float& spaceSize=0.21, const bool& crop=true);
 		template <class WRITER>
-		unsigned int generateAdaptive(float (*func)(const Point&), const float& white_density, const float& black_density,  const short int& ilut, WRITER& writer, const unsigned short int& seed=0, const float& spaceSize=0.235, const bool& interpolate=true, const bool& dither=true);
+		unsigned int generateAdaptive(float (*func)(const Point&), const float& white_density, const float& black_density,  const short int& ilut, WRITER& writer, const unsigned short int& seed=0, const float& spaceSize=0.21, const bool& interpolate=true, const bool& dither=true);
 
 };
 

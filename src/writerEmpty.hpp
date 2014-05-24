@@ -9,7 +9,7 @@
 class WriterEmpty
 {
 	public:
-		inline void sample(const Point& sample, const TileState& tilestate) const {}
+		inline void sample(const Point& sample, const TileState& tilestate) {}
 		inline void clear(const float& a=1.) const {}
 };
 
