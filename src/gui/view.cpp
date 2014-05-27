@@ -1,9 +1,9 @@
 #include <iostream>
 #include <sstream>
-
+#include "config.h"
 #include "view.hpp"
 
-#define DIR_SHADERS "./data/shader/"
+#define DIR_SHADERS PROJECT_SOURCE_DIR"/data/shader/"
 
 PointSetView::PointSetView(QWidget *parent) :
 	m_timer(NULL),

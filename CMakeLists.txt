@@ -3,7 +3,6 @@ cmake_policy(SET CMP0015 OLD)
 list(APPEND CMAKE_MODULE_PATH "modules")
 
 ##### BUILD ############################################################
-
 project(sampler)
 
 set(EXECUTABLE_OUTPUT_PATH ./bin)
@@ -21,6 +20,7 @@ include_directories(
 	${Boost_INCLUDE_DIR}
 	${QT_QTOPENGL_INCLUDE_DIR}
 	${OPENGL_INCLUDE_DIR}
+        ${PROJECT_BINARY_DIR}
 )
 
 link_directories(
@@ -65,3 +65,9 @@ install(
 	./bin/sampler-gui
 	DESTINATION bin
 )
+
+#------------------------------------------------------------------------------
+# Configuration of the Config.h
+#------------------------------------------------------------------------------
+CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/src/config.h.in
+  ${PROJECT_BINARY_DIR}/config.h)
