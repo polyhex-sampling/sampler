@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 cmake_policy(SET CMP0015 OLD)
-list(APPEND CMAKE_MODULE_PATH "modules")
+list(APPEND CMAKE_MODULE_PATH "cmake")
 
 ##### BUILD ############################################################
 
