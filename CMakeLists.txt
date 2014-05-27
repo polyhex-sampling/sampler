@@ -28,6 +28,25 @@ link_directories(
 	${OPENGL_LIBRARY_DIRS}
 )
 
+
+include(ExternalData)
+set(ExternalData_URL_TEMPLATES  "https://liris.cnrs.fr/polyhex/data/barycenters.dat")
+
+ExternalData_Expand_Arguments(
+  MyData  
+  OUT-data  
+  DATA{barycenters.dat}  
+  )
+
+#MESSAGE(STATUS ${OUT-data})
+##add_custom_target(mydata  "echo")
+#ExternalData_Add_Target(MyData
+#  NAME MyTest
+#  COMMAND "echo"  DATA{barycenters.dat}
+#  )
+ExternalData_Add_Target(MyData)
+
+
 file(GLOB sampler-core-src ${PROJECT_SOURCE_DIR}/src/*.cpp )
 file(GLOB sampler-gui-src ${PROJECT_SOURCE_DIR}/src/gui/*.cpp )
 file(GLOB sampler-gui-hdr ${PROJECT_SOURCE_DIR}/src/gui/*.hpp )
@@ -65,3 +84,4 @@ install(
 	./bin/sampler-gui
 	DESTINATION bin
 )
+
