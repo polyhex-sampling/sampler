@@ -29,22 +29,33 @@ link_directories(
 )
 
 
+
+######## External Data for production/barycenter/lut files######
+##
+## Data files will be located in the {build-folder}/data/lut/
+## 
 include(ExternalData)
-set(ExternalData_URL_TEMPLATES  "https://liris.cnrs.fr/polyhex/data/barycenters.dat")
-
+list(APPEND ExternalData_URL_TEMPLATES
+  "https://liris.cnrs.fr/polyhex/data/production_rules.dat"
+  "https://liris.cnrs.fr/polyhex/data/barycenters.dat"
+  "https://liris.cnrs.fr/polyhex/data/offsets_bnot.dat")
 ExternalData_Expand_Arguments(
-  MyData  
-  OUT-data  
-  DATA{barycenters.dat}  
+  GetData
+  OUT-data 
+  DATA{data/lut/production_rules.dat}
+  DATA{data/lut/barycenters.dat}
   )
-
-#MESSAGE(STATUS ${OUT-data})
-##add_custom_target(mydata  "echo")
-#ExternalData_Add_Target(MyData
-#  NAME MyTest
-#  COMMAND "echo"  DATA{barycenters.dat}
-#  )
-ExternalData_Add_Target(MyData)
+MESSAGE(STATUS "PATH to the data files: ${OUT-data}")
+ExternalData_Add_Target(GetData)
+ExternalData_Expand_Arguments(
+  GetLUT
+  OUT-LUT 
+  DATA{data/lut/offsets_bnot.dat}
+  )
+MESSAGE(STATUS "PATH to the LUT file: ${OUT-LUT}")
+ExternalData_Add_Target(GetLUT)
+set_target_properties(GetLUT PROPERTIES EXCLUDE_FROM_ALL "TRUE")
+##########"
 
 
 file(GLOB sampler-core-src ${PROJECT_SOURCE_DIR}/src/*.cpp )
