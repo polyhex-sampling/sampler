@@ -36,9 +36,7 @@ link_directories(
 ## 
 include(ExternalData)
 list(APPEND ExternalData_URL_TEMPLATES
-  "http://liris.cnrs.fr/polyhex/data/production_rules.dat"
-  "http://liris.cnrs.fr/polyhex/data/barycenters.dat"
-  "http://liris.cnrs.fr/polyhex/data/offsets_bnot.dat")
+  "http://liris.cnrs.fr/polyhex/data/%(algo)-%(hash)")
 ExternalData_Expand_Arguments(
   GetData
   OUT-data 
