@@ -29,9 +29,9 @@ For best performances, you can compile with optimized flags: `cmake .. -DCMAKE_B
 
 Once built, several executables are available in `build/bin`:
 
-* `sampler-cli`: 
-* `sampler-gui`:
-* `sampler-test`: 
+* `sampler-cli`: command line uniform sampling tool
+* `sampler-gui`: Qt base sampler (uniform, adaptive, ...) (needs openGL>3.3)
+* `sampler-test`: to check integrity of data files
 
 
 Data
