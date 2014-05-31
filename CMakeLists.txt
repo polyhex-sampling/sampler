@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 cmake_policy(SET CMP0015 OLD)
-list(APPEND CMAKE_MODULE_PATH "modules")
+list(APPEND CMAKE_MODULE_PATH "cmake")
 
 ##### BUILD ############################################################
 project(sampler)
@@ -27,6 +27,34 @@ link_directories(
 	${Boost_LIBRARY_DIRS}
 	${OPENGL_LIBRARY_DIRS}
 )
+
+
+
+######## External Data for production/barycenter/lut files######
+##
+## Data files will be located in the {build-folder}/data/lut/
+## 
+include(ExternalData)
+list(APPEND ExternalData_URL_TEMPLATES
+  "http://liris.cnrs.fr/polyhex/data/%(algo)-%(hash)")
+ExternalData_Expand_Arguments(
+  GetData
+  OUT-data 
+  DATA{data/lut/production_rules.dat}
+  DATA{data/lut/barycenters.dat}
+  )
+MESSAGE(STATUS "PATH to the data files: ${OUT-data}")
+ExternalData_Add_Target(GetData)
+ExternalData_Expand_Arguments(
+  GetLUT
+  OUT-LUT 
+  DATA{data/lut/offsets_bnot.dat}
+  )
+MESSAGE(STATUS "PATH to the LUT file: ${OUT-LUT}")
+ExternalData_Add_Target(GetLUT)
+set_target_properties(GetLUT PROPERTIES EXCLUDE_FROM_ALL "TRUE")
+##########"
+
 
 file(GLOB sampler-core-src ${PROJECT_SOURCE_DIR}/src/*.cpp )
 file(GLOB sampler-gui-src ${PROJECT_SOURCE_DIR}/src/gui/*.cpp )

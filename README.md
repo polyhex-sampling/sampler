@@ -40,6 +40,8 @@ Data
 This program needs full offsets table to produce best sampling distribution.
 These tables are heavy (1.5G) and can be downloaded here: http://liris.cnrs.fr/polyhex/data/
 
+Aternatively, `make GetLUT` (GetLUT target in your IDE) will download the data file to the folder `{your-build-folder}/data/lut`.
+
 
 Usage examples
 --------------
