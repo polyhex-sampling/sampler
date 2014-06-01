@@ -34,7 +34,8 @@ link_directories(
 ##
 ## Data files will be located in the {build-folder}/data/lut/
 ## 
-include(ExternalData)
+include(ExternalData) 
+set (ExternalData_TIMEOUT_ABSOLUTE 0)
 list(APPEND ExternalData_URL_TEMPLATES
   "http://liris.cnrs.fr/polyhex/data/%(algo)-%(hash)")
 ExternalData_Expand_Arguments(
