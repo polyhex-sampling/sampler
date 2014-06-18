@@ -5,6 +5,20 @@ Polyhex Sampler
 
 Description
 -----------
+A fast and high quality sampling system.
+
+* uniform sampling at more than 1 millions points / second
+* adaptive sampling from image or function
+
+This is an implementation of the article "Fast Tile-Based Adaptive Sampling with User-Specified Fourier Spectra" published in ACM SIGGRAPH 2014
+See http://liris.cnrs.fr/polyhex
+
+This repository provide:
+
+* source code with tools to generate uniform and adaptive sampling.
+* sampler-cli: a command line tool to generate uniform sampling.
+* sampler-gui: a Qt interface to explore the capacities of the sampling system (uniform and adaptive sampling).
+
 
 Build
 -----
@@ -12,10 +26,10 @@ Build
 To build the sampler, several packages are requires:
 
 * cmake (http://cmake.org) to generate the build project.
-* Qt4 (Gui) (http://qt.digia.com) 
+* Qt4 (Gui) (http://qt.digia.com)
 * Boost (and boost-progam-options) for command-line parsing (http://boost.org)
-* OpenGL
-* SDL and SDL_image
+* OpenGL with GLSL (version 330 minimum)
+* SDL and SDL_image library
 
 
 A classical commandline build process looks like
@@ -29,9 +43,8 @@ For best performances, you can compile with optimized flags: `cmake .. -DCMAKE_B
 
 Once built, several executables are available in `build/bin`:
 
-* `sampler-cli`: command line uniform sampling tool
-* `sampler-gui`: Qt base sampler (uniform, adaptive, ...) (needs openGL>3.3)
-* `sampler-test`: to check integrity of data files
+* `sampler-cli: command line uniform sampling tool
+* `sampler-gui: Qt base sampler (uniform, adaptive, ...)
 
 
 Data
@@ -46,7 +59,22 @@ Aternatively, `make GetLUT` (GetLUT target in your IDE) will download the data f
 Usage examples
 --------------
 
+**sampler-cli**
+    
+`./bin/sampler-cli -r data/lut/production_rules.dat -b data/lut/barycenters.dat -d data/lut/offsets_bnot.dat -n 4096 -o sampling.txt`
 
+**sampler-gui**
+
+`./bin/sampler-gui -r data/lut/production_rules.dat -b data/lut/barycenters.dat -d data/lut/offsets_bnot.dat`
+
+> *TIPS:*
+
+> * You can use mouse scroll on almost all button to change their value more easily.
+
+> * Activate `Auto` mode to generate new sampling each time a parameter change.
+
+![sampler-gui-example1](doc/sampler-gui-example_1.png)
+![sampler-gui-example2](doc/sampler-gui-example_2.png)
 
 LICENSE
 -------
