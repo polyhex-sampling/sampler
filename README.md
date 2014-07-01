@@ -65,7 +65,7 @@ Usage examples:
 
 `./bin/sampler-cli -r data/lut/production_rules.dat -b data/lut/barycenters.dat -d data/lut/offsets_bnot.dat -n 1024 -o sampling.txt`
 
-This procudes a uniform sampling with BNOT target spectra as a text file `sampling.txt` with x and y coordinates of sample points. When plotting this poin (e.g. with gnuplot), we obtain: 
+This procudes a uniform sampling with BNOT target spectra as a text file `sampling.txt` with x and y coordinates of the 1024 sample points. When plotting this poin (e.g. with gnuplot), we obtain: 
 
 ![CLIsampling](doc/samples.png)
 
