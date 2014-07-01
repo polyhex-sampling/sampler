@@ -65,7 +65,7 @@ Usage examples:
 
 `./bin/sampler-cli -r data/lut/production_rules.dat -b data/lut/barycenters.dat -d data/lut/offsets_bnot.dat -n 1024 -o sampling.txt`
 
-This procudes a uniform sampling with BNOT target spectra as a text file `sampling.txt` with x and y coordinates of the 1024 sample points. When plotting this poin (e.g. with gnuplot), we obtain: 
+This procudes a uniform sampling with BNOT target spectra as a text file `sampling.txt` with x and y coordinates of the 1024 sample points. When plotting these points (e.g. with gnuplot), we obtain: 
 
 ![CLIsampling](doc/samples.png)
 
@@ -77,9 +77,9 @@ This procudes a uniform sampling with BNOT target spectra as a text file `sampli
 
 > *TIPS:*
 
-> * You can use mouse scroll on almost all button to change their value more easily.
+> * You can use mouse scroll on almost all buttons to change their values more easily.
 
-> * Activate `Auto` mode to generate new sampling each time a parameter change.
+> * Activate `Auto` mode to generate new sampling each time a parameter changes.
 
 ![sampler-gui-example1](doc/sampler-gui-example_1.png)
 ![sampler-gui-example2](doc/sampler-gui-example_2.png)
