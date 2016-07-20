@@ -68,7 +68,7 @@ Usage examples:
 
 This procudes a uniform sampling with BNOT target spectra as a text file `sampling.txt` with x and y coordinates of the 1024 sample points. When plotting these points (e.g. with gnuplot), we obtain: 
 
-![CLIsampling](doc/samples.png)
+![CLIsampling](doc/samples-bnot.png)
 
 
 
