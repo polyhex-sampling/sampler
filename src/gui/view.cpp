@@ -5,7 +5,7 @@
 
 #define DIR_SHADERS PROJECT_SOURCE_DIR"/data/shader/"
 
-PointSetView::PointSetView(QWidget *parent) :
+PointSetView::PointSetView(const QGLFormat & format, QWidget *parent) :
 	m_timer(NULL),
 	m_glContext(false),
 	m_optShowDomain(true),
@@ -21,14 +21,18 @@ PointSetView::PointSetView(QWidget *parent) :
 	m_dFuncIndex(0),
 	m_dFuncMode(0),
 	m_subdivFactor(37),
-	QGLWidget(parent)
+	QGLWidget(format,parent)
 {
-	//Anti aliasing
-	QGLFormat newFormat = this->format();
-	newFormat.setSampleBuffers(true);
-	newFormat.setSamples(16);
-	this->setFormat(newFormat);
+	//Anti aliasing and Core Profile
+  //	QGLFormat newFormat = this->format();
+  //newFormat.setSampleBuffers(true);
+  //	newFormat.setSamples(16);
+  //     this->setFormat(newFormat);
 
+        std::cout<< "OpenGL Profile (Ctr)== "<< this->format().profile() << std::endl;
+        std::cout<< "OpenGL Profile (param)== "<< format.profile() << std::endl;
+
+  
 	setMouseTracking(true);
 
 	//Timer

@@ -69,7 +69,7 @@ protected:
 	void wheelEvent(QWheelEvent* wheelEvent);
 	
 public:
-	PointSetView(QWidget *parent = 0);
+        PointSetView(const QGLFormat & format,QWidget *parent = 0);
 	~PointSetView();
 	
 	void showDomain(bool v);
