@@ -75,8 +75,8 @@ This procudes a uniform sampling with BNOT target spectra as a text file `sampli
 This procudes an adaptive sampling with BNOT target spectra as a text file `sampling.txt` with x and y coordinates of the sample points. 
 When plotting these points (e.g. with gnuplot), we obtain
 
-![CLIsampling](doc/samples-adaptive-6k.png) (with -K 2)
-![CLIsampling](doc/samples-adaptive-65k.png) (with -K 29)
+(with -K 2) ![CLIsampling](doc/samples-adaptive-6k.png)
+(with -K 29) ![CLIsampling](doc/samples-adaptive-65k.png) 
 
 **sampler-gui**
 
