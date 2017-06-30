@@ -44,7 +44,7 @@ For best performances, you can compile with optimized flags: `cmake .. -DCMAKE_B
 
 Once built, several executables are available in `build/bin`:
 
-* `sampler-cli: command line uniform sampling tool
+* `sampler-cli: command line uniform and adaptive sampling tool
 * `sampler-gui: Qt base sampler (uniform, adaptive, ...)
 
 
@@ -70,7 +70,13 @@ This procudes a uniform sampling with BNOT target spectra as a text file `sampli
 
 ![CLIsampling](doc/samples-bnot.png)
 
+`./bin/sampler-cli -r data/lut/production_rules.dat -b data/lut/barycenters.dat -d data/lut/offsets_bnot.dat -i butterfly.png -o sampling.txt`
 
+This procudes an adaptive sampling with BNOT target spectra as a text file `sampling.txt` with x and y coordinates of the sample points. 
+When plotting these points (e.g. with gnuplot), we obtain
+
+![CLIsampling](doc/samples-adaptive-6k.png) (with -K 2)
+![CLIsampling](doc/samples-adaptive-65k.png) (with -K 29)
 
 **sampler-gui**
 

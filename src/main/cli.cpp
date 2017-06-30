@@ -44,16 +44,16 @@ int main(int argc, char** argv)
 		("image,i",
 		 boostPO::value<std::string>(&fn_image),
 		 "Image for adaptive sampling")
-		("lvlmin,",
+		("lvlmin,l",
 		 boostPO::value<double>(&lvl_min)->default_value(0),
 		 "Level min")
-		("lvlmax,",
+		("lvlmax,L",
 		 boostPO::value<double>(&lvl_max)->default_value(4),
 		 "Level max")
-		("rankmin,",
+		("rankmin,k",
 		 boostPO::value<double>(&rank_min)->default_value(0),
 		 "Rank min")
-		("rankmax,",
+		("rankmax,K",
 		 boostPO::value<double>(&rank_max)->default_value(29),
 		 "Rank max")
 		("seed,s",
