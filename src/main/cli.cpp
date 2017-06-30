@@ -13,8 +13,13 @@ int main(int argc, char** argv)
 	std::string fn_bary;
 	std::string fn_dev;
 	std::string fn_out;
+	std::string fn_image;
 	unsigned int nbSample;
 	unsigned short int seed;
+	double lvl_min;
+	double lvl_max;
+	double rank_min;
+	double rank_max;
 
 	boostPO::variables_map vm;
 	boostPO::options_description desc("Allowed options");
@@ -36,6 +41,21 @@ int main(int argc, char** argv)
 		("nbSample,n",
 		 boostPO::value<unsigned int>(&nbSample)->default_value(1024),
 		 "Number of sample de generate")
+		("image,i",
+		 boostPO::value<std::string>(&fn_image),
+		 "Image for adaptive sampling")
+		("lvlmin,",
+		 boostPO::value<double>(&lvl_min)->default_value(0),
+		 "Level min")
+		("lvlmax,",
+		 boostPO::value<double>(&lvl_max)->default_value(4),
+		 "Level max")
+		("rankmin,",
+		 boostPO::value<double>(&rank_min)->default_value(0),
+		 "Rank min")
+		("rankmax,",
+		 boostPO::value<double>(&rank_max)->default_value(29),
+		 "Rank max")
 		("seed,s",
 		 boostPO::value<unsigned short int>(&seed)->default_value(0),
 		 "Initial tile to use for sampling ([1-408], 0 = random)")
@@ -71,14 +91,34 @@ int main(int argc, char** argv)
 	}
 	if( vm.count("seed") ) seed = (seed-1)%408;
 
-	if( vm.count("out") )
+	if(fn_image.empty())
 	{
-		WriterFileRaw write(fn_out);
-		sampler.generateUniform(nbSample, 0, write, seed);
+		if( vm.count("out") )
+		{
+			WriterFileRaw write(fn_out);
+			sampler.generateUniform(nbSample, 0, write, seed);
+		}
+		else
+		{
+			WriterEmpty write;
+			sampler.generateUniform(nbSample, 0, write, seed);
+		}
 	}
 	else
 	{
-		WriterEmpty write;
-		sampler.generateUniform(nbSample, 0, write, seed);
+		Image img(fn_image);
+		double white_density = computeDensity(lvl_min, rank_min, 0.21, sampler.tiling().subdivFactor());
+		double black_density = computeDensity(lvl_max, rank_max, 0.21, sampler.tiling().subdivFactor());
+		
+		if( vm.count("out") )
+		{
+			WriterFileRaw write(fn_out);
+			sampler.generateAdaptive(&(img.dFunc), white_density, black_density, 0, write, seed);
+		}
+		else
+		{
+			WriterEmpty write;
+			sampler.generateAdaptive(&(img.dFunc), white_density, black_density, 0, write, seed);
+		}
 	}
 }
