@@ -1,7 +1,5 @@
 Polyhex Sampler
 ===============
-[![Build Status](https://travis-ci.org/polyhex-sampling/sampler.svg?branch=master)](https://travis-ci.org/polyhex-sampling/sampler)
-[![DOI](https://zenodo.org/badge/3793/polyhex-sampling/sampler.png)](http://dx.doi.org/10.5281/zenodo.10720)
 
 
 Description
